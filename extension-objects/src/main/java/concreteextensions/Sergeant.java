@@ -32,16 +32,16 @@ import units.SergeantUnit;
  */
 public class Sergeant implements SergeantExtension {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(Sergeant.class);
-
   private SergeantUnit unit;
 
   public Sergeant(SergeantUnit sergeantUnit) {
     this.unit = sergeantUnit;
   }
 
+  final Logger logger = LoggerFactory.getLogger(Sergeant.class);
+
   @Override
   public void sergeantReady() {
-    LOGGER.info("[Sergeant] " + unit.getName() + " is ready! ");
+    logger.info("[Sergeant] " + unit.getName() + " is ready! ");
   }
 }

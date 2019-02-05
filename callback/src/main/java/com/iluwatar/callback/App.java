@@ -41,7 +41,12 @@ public class App {
    */
   public static void main(String[] args) {
     Task task = new SimpleTask();
-    Callback callback = () -> LOGGER.info("I'm done now.");
+    Callback callback = new Callback() {
+      @Override
+      public void call() {
+        LOGGER.info("I'm done now.");
+      }
+    };
     task.executeWith(callback);
   }
 }

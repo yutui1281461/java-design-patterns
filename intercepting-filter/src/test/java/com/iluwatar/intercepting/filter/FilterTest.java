@@ -89,7 +89,7 @@ public class FilterTest {
 
   @ParameterizedTest
   @MethodSource("getTestData")
-  public void testExecute(Filter filter, Order order, String expectedResult) {
+  public void testExecute(Filter filter, Order order, String expectedResult) throws Exception {
     final String result = filter.execute(order);
     assertNotNull(result);
     assertEquals(expectedResult, result.trim());
@@ -97,7 +97,7 @@ public class FilterTest {
 
   @ParameterizedTest
   @MethodSource("getTestData")
-  public void testNext(Filter filter) {
+  public void testNext(Filter filter) throws Exception {
     assertNull(filter.getNext());
     assertSame(filter, filter.getLast());
   }

@@ -35,10 +35,8 @@ import java.util.concurrent.ThreadLocalRandom;
 class B2BService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(B2BService.class);
-  private final CallsCount callsCount;
 
-  public B2BService(Throttler timer, CallsCount callsCount) {
-    this.callsCount = callsCount;
+  public B2BService(Throttler timer) {
     timer.start();
   }
 
@@ -48,13 +46,13 @@ class B2BService {
    */
   public int dummyCustomerApi(Tenant tenant) {
     String tenantName = tenant.getName();
-    long count = callsCount.getCount(tenantName);
+    long count = CallsCount.getCount(tenantName);
     LOGGER.debug("Counter for {} : {} ", tenant.getName(), count);
     if (count >= tenant.getAllowedCallsPerSecond()) {
       LOGGER.error("API access per second limit reached for: {}", tenantName);
       return -1;
     }
-    callsCount.incrementCount(tenantName);
+    CallsCount.incrementCount(tenantName);
     return getRandomCustomerId();
   }
 

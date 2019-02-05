@@ -76,7 +76,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @BeforeEach
-  public void setUp() {
+  public void setUp() throws Exception {
     for (int i = 0; i < INITIAL_COUNT; i++) {
       final String className = dao.persistentClass.getSimpleName();
       final String entityName = String.format("%s%d", className, ID_GENERATOR.incrementAndGet());
@@ -85,7 +85,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @AfterEach
-  public void tearDown() {
+  public void tearDown() throws Exception {
     HibernateUtil.dropSession();
   }
 
@@ -94,7 +94,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @Test
-  public void testFind() {
+  public void testFind() throws Exception {
     final List<E> all = this.dao.findAll();
     for (final E entity : all) {
       final E byId = this.dao.find(entity.getId());
@@ -104,7 +104,7 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @Test
-  public void testDelete() {
+  public void testDelete() throws Exception {
     final List<E> originalEntities = this.dao.findAll();
     this.dao.delete(originalEntities.get(1));
     this.dao.delete(originalEntities.get(2));
@@ -115,24 +115,24 @@ public abstract class BaseDaoTest<E extends BaseEntity, D extends DaoBaseImpl<E>
   }
 
   @Test
-  public void testFindAll() {
+  public void testFindAll() throws Exception {
     final List<E> all = this.dao.findAll();
     assertNotNull(all);
     assertEquals(INITIAL_COUNT, all.size());
   }
 
   @Test
-  public void testSetId() {
+  public void testSetId() throws Exception {
     final E entity = this.factory.apply("name");
     assertNull(entity.getId());
 
-    final Long expectedId = 1L;
+    final Long expectedId = Long.valueOf(1);
     entity.setId(expectedId);
     assertEquals(expectedId, entity.getId());
   }
 
   @Test
-  public void testSetName() {
+  public void testSetName() throws Exception {
     final E entity = this.factory.apply("name");
     assertEquals("name", entity.getName());
     assertEquals("name", entity.toString());

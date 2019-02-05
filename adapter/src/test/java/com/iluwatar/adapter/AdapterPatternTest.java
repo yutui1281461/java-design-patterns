@@ -66,7 +66,7 @@ public class AdapterPatternTest {
    */
   @Test
   public void testAdapter() {
-    Captain captain = (Captain) beans.get(ROWING_BEAN);
+    RowingBoat captain = (RowingBoat) beans.get(ROWING_BEAN);
 
     // when captain moves
     captain.row();

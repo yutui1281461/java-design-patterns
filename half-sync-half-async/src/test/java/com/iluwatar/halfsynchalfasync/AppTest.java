@@ -34,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 public class AppTest {
 
   @Test
-  public void test() {
+  public void test() throws InterruptedException, ExecutionException {
     App.main(null);
   }
 }

@@ -40,14 +40,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PropertiesFeatureToggleVersionTest {
 
   @Test
-  public void testNullPropertiesPassed() {
+  public void testNullPropertiesPassed() throws Exception {
     assertThrows(IllegalArgumentException.class, () -> {
       new PropertiesFeatureToggleVersion(null);
     });
   }
 
   @Test
-  public void testNonBooleanProperty() {
+  public void testNonBooleanProperty() throws Exception {
     assertThrows(IllegalArgumentException.class, () -> {
       final Properties properties = new Properties();
       properties.setProperty("enhancedWelcome", "Something");
@@ -56,7 +56,7 @@ public class PropertiesFeatureToggleVersionTest {
   }
 
   @Test
-  public void testFeatureTurnedOn() {
+  public void testFeatureTurnedOn() throws Exception {
     final Properties properties = new Properties();
     properties.put("enhancedWelcome", true);
     Service service = new PropertiesFeatureToggleVersion(properties);
@@ -66,7 +66,7 @@ public class PropertiesFeatureToggleVersionTest {
   }
 
   @Test
-  public void testFeatureTurnedOff() {
+  public void testFeatureTurnedOff() throws Exception {
     final Properties properties = new Properties();
     properties.put("enhancedWelcome", false);
     Service service = new PropertiesFeatureToggleVersion(properties);

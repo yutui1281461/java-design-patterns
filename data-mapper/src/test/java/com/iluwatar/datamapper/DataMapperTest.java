@@ -21,7 +21,6 @@ package com.iluwatar.datamapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * The Data Mapper (DM) is a layer of software that separates the in-memory objects from the
@@ -44,29 +43,27 @@ public class DataMapperTest {
     final StudentDataMapper mapper = new StudentDataMapperImpl();
 
     /* Create new student */
-    int studentId = 1;
-    Student student = new Student(studentId, "Adam", 'A');
+    Student student = new Student(1, "Adam", 'A');
 
     /* Add student in respectibe db */
     mapper.insert(student);
 
     /* Check if student is added in db */
-    assertEquals(studentId, mapper.find(student.getStudentId()).get().getStudentId());
+    assertEquals(student.getStudentId(), mapper.find(student.getStudentId()).get().getStudentId());
 
     /* Update existing student object */
-    String updatedName = "AdamUpdated";
-    student = new Student(student.getStudentId(), updatedName, 'A');
+    student = new Student(student.getStudentId(), "AdamUpdated", 'A');
 
     /* Update student in respectibe db */
     mapper.update(student);
 
     /* Check if student is updated in db */
-    assertEquals(updatedName, mapper.find(student.getStudentId()).get().getName());
+    assertEquals(mapper.find(student.getStudentId()).get().getName(), "AdamUpdated");
 
     /* Delete student in db */
     mapper.delete(student);
 
     /* Result should be false */
-    assertFalse(mapper.find(student.getStudentId()).isPresent());
+    assertEquals(false, mapper.find(student.getStudentId()).isPresent());
   }
 }

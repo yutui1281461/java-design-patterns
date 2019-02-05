@@ -34,31 +34,33 @@ import java.util.List;
  */
 
 public class LoadBalancer {
-  private static final List<Server> SERVERS = new ArrayList<>();
+  private static List<Server> servers = new ArrayList<>();
   private static int lastServedId;
 
   static {
     int id = 0;
-    for (int port : new int[] {8080, 8081, 8082, 8083, 8084}) {
-      SERVERS.add(new Server("localhost", port, ++id));
-    }
+    servers.add(new Server("localhost", 8081, ++id));
+    servers.add(new Server("localhost", 8080, ++id));
+    servers.add(new Server("localhost", 8082, ++id));
+    servers.add(new Server("localhost", 8083, ++id));
+    servers.add(new Server("localhost", 8084, ++id));
   }
 
   /**
    * Add new server
    */
   public final void addServer(Server server) {
-    synchronized (SERVERS) {
-      SERVERS.add(server);
+    synchronized (servers) {
+      servers.add(server);
     }
 
   }
 
   public final int getNoOfServers() {
-    return SERVERS.size();
+    return servers.size();
   }
 
-  public int getLastServedId() {
+  public static int getLastServedId() {
     return lastServedId;
   }
 
@@ -66,10 +68,10 @@ public class LoadBalancer {
    * Handle request
    */
   public synchronized void serverRequest(Request request) {
-    if (lastServedId >= SERVERS.size()) {
+    if (lastServedId >= servers.size()) {
       lastServedId = 0;
     }
-    Server server = SERVERS.get(lastServedId++);
+    Server server = servers.get(lastServedId++);
     server.serve(request);
   }
   

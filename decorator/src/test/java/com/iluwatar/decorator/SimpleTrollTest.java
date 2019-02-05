@@ -53,7 +53,7 @@ public class SimpleTrollTest {
   }
 
   @Test
-  public void testTrollActions() {
+  public void testTrollActions() throws Exception {
     final SimpleTroll troll = new SimpleTroll();
     assertEquals(10, troll.getAttackPower());
 

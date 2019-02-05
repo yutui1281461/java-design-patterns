@@ -25,6 +25,7 @@ package com.iluwatar.hexagonal.administration;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.iluwatar.hexagonal.domain.LotteryAdministration;
+import com.iluwatar.hexagonal.domain.LotteryNumbers;
 import com.iluwatar.hexagonal.domain.LotteryService;
 import com.iluwatar.hexagonal.module.LotteryModule;
 import com.iluwatar.hexagonal.mongo.MongoConnectionPropertiesLoader;
@@ -47,21 +48,23 @@ public class ConsoleAdministration {
   public static void main(String[] args) {
     MongoConnectionPropertiesLoader.load();
     Injector injector = Guice.createInjector(new LotteryModule());
-    LotteryAdministration administration = injector.getInstance(LotteryAdministration.class);
+    LotteryAdministration administartion = injector.getInstance(LotteryAdministration.class);
     LotteryService service = injector.getInstance(LotteryService.class);
     SampleData.submitTickets(service, 20);
-    ConsoleAdministrationSrv consoleAdministration = new ConsoleAdministrationSrvImpl(administration, LOGGER);
     try (Scanner scanner = new Scanner(System.in)) {
       boolean exit = false;
       while (!exit) {
         printMainMenu();
         String cmd = readString(scanner);
         if ("1".equals(cmd)) {
-          consoleAdministration.getAllSubmittedTickets();
+          administartion.getAllSubmittedTickets().forEach((k, v) -> LOGGER.info("Key: {}, Value: {}", k, v));
         } else if ("2".equals(cmd)) {
-          consoleAdministration.performLottery();
+          LotteryNumbers numbers = administartion.performLottery();
+          LOGGER.info("The winning numbers: {}", numbers.getNumbersAsString());
+          LOGGER.info("Time to reset the database for next round, eh?");
         } else if ("3".equals(cmd)) {
-          consoleAdministration.resetLottery();
+          administartion.resetLottery();
+          LOGGER.info("The lottery ticket database was cleared.");
         } else if ("4".equals(cmd)) {
           exit = true;
         } else {

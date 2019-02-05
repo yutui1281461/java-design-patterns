@@ -41,7 +41,7 @@ import static org.mockito.Mockito.when;
 public class ServantTest {
 
   @Test
-  public void testFeed() {
+  public void testFeed() throws Exception {
     final Royalty royalty = mock(Royalty.class);
     final Servant servant = new Servant("test");
     servant.feed(royalty);
@@ -50,7 +50,7 @@ public class ServantTest {
   }
 
   @Test
-  public void testGiveWine() {
+  public void testGiveWine() throws Exception {
     final Royalty royalty = mock(Royalty.class);
     final Servant servant = new Servant("test");
     servant.giveWine(royalty);
@@ -59,7 +59,7 @@ public class ServantTest {
   }
 
   @Test
-  public void testGiveCompliments() {
+  public void testGiveCompliments() throws Exception {
     final Royalty royalty = mock(Royalty.class);
     final Servant servant = new Servant("test");
     servant.giveCompliments(royalty);
@@ -68,7 +68,7 @@ public class ServantTest {
   }
 
   @Test
-  public void testCheckIfYouWillBeHanged() {
+  public void testCheckIfYouWillBeHanged() throws Exception {
     final Royalty goodMoodRoyalty = mock(Royalty.class);
     when(goodMoodRoyalty.getMood()).thenReturn(true);
 

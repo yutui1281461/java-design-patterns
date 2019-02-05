@@ -155,15 +155,19 @@ public class App {
    * This is an async method and does not wait until the file is downloaded.
    */
   private Promise<String> download(String urlString) {
-    return new Promise<String>()
+    Promise<String> downloadPromise = new Promise<String>()
         .fulfillInAsync(
-            () -> Utility.downloadFile(urlString), executor)
+            () -> {
+              return Utility.downloadFile(urlString);
+            }, executor)
         .onError(
             throwable -> {
               throwable.printStackTrace();
               taskCompleted();
             }
         );
+
+    return downloadPromise;
   }
 
   private void stop() throws InterruptedException {

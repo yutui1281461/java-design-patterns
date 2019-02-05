@@ -37,16 +37,16 @@ public class FruitBowlTest {
   public void fruitBowlTest() {
     FruitBowl fbowl = new FruitBowl();
     
-    assertEquals(0, fbowl.countFruit());
+    assertEquals(fbowl.countFruit(), 0);
     
     for (int i = 1; i <= 10; i++) {
       fbowl.put(new Fruit(Fruit.FruitType.LEMON));
-      assertEquals(i, fbowl.countFruit());
+      assertEquals(fbowl.countFruit(), i);
     }
 
     for (int i = 9; i >= 0; i--) {
       assertNotNull(fbowl.take());
-      assertEquals(i, fbowl.countFruit());
+      assertEquals(fbowl.countFruit(), i);
     }
 
     assertNull(fbowl.take());

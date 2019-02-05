@@ -58,6 +58,8 @@ public class ServiceExecutor implements Runnable {
 
         Thread.sleep(1000);
       }
+    } catch (InterruptedException ie) {
+      LOGGER.error(ie.getMessage());
     } catch (Exception e) {
       LOGGER.error(e.getMessage());
     }

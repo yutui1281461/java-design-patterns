@@ -25,38 +25,17 @@ package com.iluwatar.balking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Washing machine class
  */
 public class WashingMachine {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WashingMachine.class);
-  private final DelayProvider delayProvider;
+
   private WashingMachineState washingMachineState;
 
-  /**
-   * Creates a new instance of WashingMachine
-   */
   public WashingMachine() {
-    this((interval, timeUnit, task) -> {
-      try {
-        Thread.sleep(timeUnit.toMillis(interval));
-      } catch (InterruptedException ie) {
-        ie.printStackTrace();
-      }
-      task.run();
-    });
-  }
-
-  /**
-   * Creates a new instance of WashingMachine using provided delayProvider. This constructor is used only for
-   * unit testing purposes.
-   */
-  public WashingMachine(DelayProvider delayProvider) {
-    this.delayProvider = delayProvider;
-    this.washingMachineState = WashingMachineState.ENABLED;
+    washingMachineState = WashingMachineState.ENABLED;
   }
 
   public WashingMachineState getWashingMachineState() {
@@ -77,8 +56,12 @@ public class WashingMachine {
       washingMachineState = WashingMachineState.WASHING;
     }
     LOGGER.info("{}: Doing the washing", Thread.currentThread().getName());
-
-    this.delayProvider.executeAfterDelay(50, TimeUnit.MILLISECONDS, this::endOfWashing);
+    try {
+      Thread.sleep(50);
+    } catch (InterruptedException ie) {
+      ie.printStackTrace();
+    }
+    endOfWashing();
   }
 
   /**

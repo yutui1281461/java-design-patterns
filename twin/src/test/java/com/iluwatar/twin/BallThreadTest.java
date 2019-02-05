@@ -73,7 +73,7 @@ public class BallThreadTest {
    * Verify if the {@link BallThread} can be resumed
    */
   @Test
-  public void testResume() {
+  public void testResume() throws Exception {
     assertTimeout(ofMillis(5000), () -> {
       final BallThread ballThread = new BallThread();
 
@@ -102,7 +102,7 @@ public class BallThreadTest {
    * Verify if the {@link BallThread} is interruptible
    */
   @Test
-  public void testInterrupt() {
+  public void testInterrupt() throws Exception {
     assertTimeout(ofMillis(5000), () -> {
       final BallThread ballThread = new BallThread();
       final UncaughtExceptionHandler exceptionHandler = mock(UncaughtExceptionHandler.class);

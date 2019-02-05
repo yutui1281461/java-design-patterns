@@ -51,7 +51,7 @@ public class AggregatorRoute extends RouteBuilder {
    * @throws Exception in case of exception during configuration
    */
   @Override
-  public void configure() {
+  public void configure() throws Exception {
     // Main route
     from("{{entry}}").aggregate(constant(true), aggregator)
         .completionSize(3).completionInterval(2000)

@@ -40,7 +40,7 @@ import static org.mockito.Mockito.when;
 public class FilterManagerTest {
 
   @Test
-  public void testFilterRequest() {
+  public void testFilterRequest() throws Exception {
     final Target target = mock(Target.class);
     final FilterManager filterManager = new FilterManager();
     assertEquals("RUNNING...", filterManager.filterRequest(mock(Order.class)));
@@ -48,7 +48,7 @@ public class FilterManagerTest {
   }
 
   @Test
-  public void testAddFilter() {
+  public void testAddFilter() throws Exception {
     final Target target = mock(Target.class);
     final FilterManager filterManager = new FilterManager();
 

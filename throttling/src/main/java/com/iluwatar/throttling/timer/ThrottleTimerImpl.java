@@ -37,12 +37,10 @@ import com.iluwatar.throttling.CallsCount;
  */
 public class ThrottleTimerImpl implements Throttler {
 
-  private final int throttlePeriod;
-  private final CallsCount callsCount;
-
-  public ThrottleTimerImpl(int throttlePeriod, CallsCount callsCount) {
+  private int throttlePeriod;
+  
+  public ThrottleTimerImpl(int throttlePeriod) {
     this.throttlePeriod = throttlePeriod;
-    this.callsCount = callsCount;
   }
   
   /**
@@ -53,7 +51,7 @@ public class ThrottleTimerImpl implements Throttler {
     new Timer(true).schedule(new TimerTask() {
       @Override
       public void run() {
-        callsCount.reset();
+        CallsCount.reset();
       }
     }, 0, throttlePeriod);
   }

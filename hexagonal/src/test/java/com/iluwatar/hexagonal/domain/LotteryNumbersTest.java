@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,10 +37,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Unit tests for {@link LotteryNumbers}
  *
  */
-class LotteryNumbersTest {
+public class LotteryNumbersTest {
   
   @Test
-  void testGivenNumbers() {
+  public void testGivenNumbers() {
     LotteryNumbers numbers = LotteryNumbers.create(
             new HashSet<>(Arrays.asList(1, 2, 3, 4)));
     assertEquals(numbers.getNumbers().size(), 4);
@@ -51,27 +51,29 @@ class LotteryNumbersTest {
   }
   
   @Test
-  void testNumbersCantBeModified() {
+  public void testNumbersCantBeModified() {
     LotteryNumbers numbers = LotteryNumbers.create(
             new HashSet<>(Arrays.asList(1, 2, 3, 4)));
-    assertThrows(UnsupportedOperationException.class, () -> numbers.getNumbers().add(5));
+    assertThrows(UnsupportedOperationException.class, () -> {
+      numbers.getNumbers().add(5);
+    });
   }
   
   @Test
-  void testRandomNumbers() {
+  public void testRandomNumbers() {
     LotteryNumbers numbers = LotteryNumbers.createRandom();
     assertEquals(numbers.getNumbers().size(), LotteryNumbers.NUM_NUMBERS);
   }
   
   @Test
-  void testEquals() {
+  public void testEquals() {
     LotteryNumbers numbers1 = LotteryNumbers.create(
             new HashSet<>(Arrays.asList(1, 2, 3, 4)));
     LotteryNumbers numbers2 = LotteryNumbers.create(
             new HashSet<>(Arrays.asList(1, 2, 3, 4)));
-    assertEquals(numbers1, numbers2);
+    assertTrue(numbers1.equals(numbers2));
     LotteryNumbers numbers3 = LotteryNumbers.create(
             new HashSet<>(Arrays.asList(11, 12, 13, 14)));
-    assertNotEquals(numbers1, numbers3);
+    assertFalse(numbers1.equals(numbers3));
   }
 }

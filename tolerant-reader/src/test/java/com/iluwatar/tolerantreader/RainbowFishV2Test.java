@@ -24,9 +24,7 @@ package com.iluwatar.tolerantreader;
 
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Date: 12/30/15 - 18:35 PM
@@ -45,9 +43,9 @@ public class RainbowFishV2Test {
     assertEquals(1, fish.getAge());
     assertEquals(2, fish.getLengthMeters());
     assertEquals(3, fish.getWeightTons());
-    assertFalse(fish.getSleeping());
-    assertTrue(fish.getHungry());
-    assertFalse(fish.getAngry());
+    assertEquals(false, fish.getSleeping());
+    assertEquals(true, fish.getHungry());
+    assertEquals(false, fish.getAngry());
   }
 
 }

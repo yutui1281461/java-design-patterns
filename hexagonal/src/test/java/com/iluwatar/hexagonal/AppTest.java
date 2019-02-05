@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for simple App.
  */
-class AppTest {
+public class AppTest {
 
   @Test
-  void testApp() {
+  public void testApp() {
     String[] args = {};
     App.main(args);
   }

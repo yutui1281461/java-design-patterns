@@ -33,11 +33,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  */
 public class SoldierUnitTest {
   @Test
-  public void getUnitExtension() {
+  public void getUnitExtension() throws Exception {
 
     final Unit unit = new SoldierUnit("SoldierUnitName");
 
-    assertNotNull(unit.getUnitExtension("SoldierExtension"));
+    assertNotNull((SoldierExtension) unit.getUnitExtension("SoldierExtension"));
     assertNull(unit.getUnitExtension("SergeantExtension"));
     assertNull(unit.getUnitExtension("CommanderExtension"));
 

@@ -39,6 +39,6 @@ public class MessageTest {
     // Parameterized constructor test.
     String testMsg = "Message Test";
     Message msg = new Message(testMsg);
-    assertEquals(testMsg, msg.getMsg());
+    assertEquals(msg.getMsg(), testMsg);
   }
 }

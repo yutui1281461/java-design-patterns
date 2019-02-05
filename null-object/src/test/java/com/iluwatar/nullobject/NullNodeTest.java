@@ -56,7 +56,7 @@ public class NullNodeTest {
   }
 
   @Test
-  public void testWalk() {
+  public void testWalk() throws Exception {
     NullNode.getInstance().walk();
   }
 

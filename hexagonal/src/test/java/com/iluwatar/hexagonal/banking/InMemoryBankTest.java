@@ -32,19 +32,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Tests for banking
  *
  */
-class InMemoryBankTest {
+public class InMemoryBankTest {
 
   private final WireTransfers bank = new InMemoryBank();
   
   @Test
-  void testInit() {
-    assertEquals(0, bank.getFunds("foo"));
+  public void testInit() {
+    assertEquals(bank.getFunds("foo"), 0);
     bank.setFunds("foo", 100);
-    assertEquals(100, bank.getFunds("foo"));
+    assertEquals(bank.getFunds("foo"), 100);
     bank.setFunds("bar", 150);
-    assertEquals(150, bank.getFunds("bar"));
+    assertEquals(bank.getFunds("bar"), 150);
     assertTrue(bank.transferFunds(50, "bar", "foo"));
-    assertEquals(150, bank.getFunds("foo"));
-    assertEquals(100, bank.getFunds("bar"));
+    assertEquals(bank.getFunds("foo"), 150);
+    assertEquals(bank.getFunds("bar"), 100);
   }
 }

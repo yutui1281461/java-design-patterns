@@ -14,8 +14,7 @@
  */
 package domainapp.dom.modules.simple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,18 +30,24 @@ public class SimpleObjectTest {
   public void setUp() throws Exception {
     simpleObject = new SimpleObject();
   }
-  
-  @Test
-  public void testName() throws Exception {
-    // given
-    String name = "Foobar";
-    assertNull(simpleObject.getName());
 
-    // when
-    simpleObject.setName(name);
+  /**
+   * Test for Names for SimpleObjects
+   */
+  public static class Name extends SimpleObjectTest {
 
-    // then
-    assertEquals(name, simpleObject.getName());
+    @Test
+    public void happyCase() throws Exception {
+      // given
+      String name = "Foobar";
+      assertThat(simpleObject.getName()).isNull();
+
+      // when
+      simpleObject.setName(name);
+
+      // then
+      assertThat(simpleObject.getName()).isEqualTo(name);
+    }
   }
 
 }

@@ -40,7 +40,7 @@ public class OrcWarlord extends Warlord {
   }
 
   @Override
-  public OrcWarlord copy() {
+  public OrcWarlord copy() throws CloneNotSupportedException {
     return new OrcWarlord(this);
   }
 

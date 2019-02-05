@@ -92,7 +92,7 @@ public class MoneyTransferEvent extends DomainEvent {
     }
     Account accountTo = AccountAggregate.getAccount(accountNoTo);
     if (accountTo == null) {
-      throw new RuntimeException("Account not found " + accountNoTo);
+      throw new RuntimeException("Account not found" + accountTo);
     }
 
     accountFrom.handleTransferFromEvent(this);

@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * tests {@link CustomerResource}.
@@ -46,10 +45,10 @@ public class CustomerResourceTest {
 
     List<CustomerDto> allCustomers = customerResource.getAllCustomers();
 
-    assertEquals(1, allCustomers.size());
-    assertEquals("1", allCustomers.get(0).getId());
-    assertEquals("Melody", allCustomers.get(0).getFirstName());
-    assertEquals("Yates", allCustomers.get(0).getLastName());
+    assertEquals(allCustomers.size(), 1);
+    assertEquals(allCustomers.get(0).getId(), "1");
+    assertEquals(allCustomers.get(0).getFirstName(), "Melody");
+    assertEquals(allCustomers.get(0).getLastName(), "Yates");
   }
 
   @Test
@@ -60,9 +59,9 @@ public class CustomerResourceTest {
     customerResource.save(customer);
 
     List<CustomerDto> allCustomers = customerResource.getAllCustomers();
-    assertEquals("1", allCustomers.get(0).getId());
-    assertEquals("Rita", allCustomers.get(0).getFirstName());
-    assertEquals("Reynolds", allCustomers.get(0).getLastName());
+    assertEquals(allCustomers.get(0).getId(), "1");
+    assertEquals(allCustomers.get(0).getFirstName(), "Rita");
+    assertEquals(allCustomers.get(0).getLastName(), "Reynolds");
   }
 
   @Test
@@ -76,7 +75,7 @@ public class CustomerResourceTest {
     customerResource.delete(customer.getId());
 
     List<CustomerDto> allCustomers = customerResource.getAllCustomers();
-    assertTrue(allCustomers.isEmpty());
+    assertEquals(allCustomers.size(), 0);
   }
 
 }

@@ -38,23 +38,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Tests for {@link LotteryTicketRepository}
  *
  */
-class InMemoryTicketRepositoryTest {
+public class InMemoryTicketRepositoryTest {
 
   private final LotteryTicketRepository repository = new InMemoryTicketRepository();
   
   @BeforeEach
-  void clear() {
+  public void clear() {
     repository.deleteAll();
   }
   
   @Test
-  void testCrudOperations() {
+  public void testCrudOperations() {
     LotteryTicketRepository repository = new InMemoryTicketRepository();
-    assertTrue(repository.findAll().isEmpty());
+    assertEquals(repository.findAll().size(), 0);
     LotteryTicket ticket = LotteryTestUtils.createLotteryTicket();
     Optional<LotteryTicketId> id = repository.save(ticket);
     assertTrue(id.isPresent());
-    assertEquals(1, repository.findAll().size());
+    assertEquals(repository.findAll().size(), 1);
     Optional<LotteryTicket> optionalTicket = repository.findById(id.get());
     assertTrue(optionalTicket.isPresent());
   }

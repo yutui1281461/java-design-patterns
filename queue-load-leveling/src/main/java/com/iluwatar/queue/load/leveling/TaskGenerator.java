@@ -80,6 +80,8 @@ public class TaskGenerator implements Task, Runnable {
         // Make the current thread to sleep after every Message submission.
         Thread.sleep(1000);
       }
+    } catch (InterruptedException ie) {
+      LOGGER.error(ie.getMessage());
     } catch (Exception e) {
       LOGGER.error(e.getMessage());
     }

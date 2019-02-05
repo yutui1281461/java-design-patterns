@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Tests for Mongo based ticket repository
  */
 @Disabled
-class MongoTicketRepositoryTest {
+public class MongoTicketRepositoryTest {
 
   private static final String TEST_DB = "lotteryTestDB";
   private static final String TEST_TICKETS_COLLECTION = "lotteryTestTickets";
@@ -50,7 +50,7 @@ class MongoTicketRepositoryTest {
   private MongoTicketRepository repository;
 
   @BeforeEach
-  void init() {
+  public void init() {
     MongoConnectionPropertiesLoader.load();
     MongoClient mongoClient = new MongoClient(System.getProperty("mongo-host"),
         Integer.parseInt(System.getProperty("mongo-port")));
@@ -61,20 +61,20 @@ class MongoTicketRepositoryTest {
   }
 
   @Test
-  void testSetup() {
-    assertEquals(1, repository.getCountersCollection().count());
-    assertEquals(0, repository.getTicketsCollection().count());
+  public void testSetup() {
+    assertTrue(repository.getCountersCollection().count() == 1);
+    assertTrue(repository.getTicketsCollection().count() == 0);
   }
 
   @Test
-  void testNextId() {
+  public void testNextId() {
     assertEquals(1, repository.getNextId());
     assertEquals(2, repository.getNextId());
     assertEquals(3, repository.getNextId());
   }
 
   @Test
-  void testCrudOperations() {
+  public void testCrudOperations() {
     // create new lottery ticket and save it
     PlayerDetails details = new PlayerDetails("foo@bar.com", "123-123", "07001234");
     LotteryNumbers random = LotteryNumbers.createRandom();

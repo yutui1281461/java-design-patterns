@@ -57,33 +57,33 @@ public class CreatureTest {
 
   @ParameterizedTest
   @MethodSource("dataProvider")
-  public void testGetName(Creature testedCreature, String name) {
+  public void testGetName(Creature testedCreature, String name) throws Exception {
     assertEquals(name, testedCreature.getName());
   }
 
   @ParameterizedTest
   @MethodSource("dataProvider")
-  public void testGetSize(Creature testedCreature, String name, Size size) {
+  public void testGetSize(Creature testedCreature, String name, Size size) throws Exception {
     assertEquals(size, testedCreature.getSize());
   }
 
   @ParameterizedTest
   @MethodSource("dataProvider")
-  public void testGetMovement(Creature testedCreature, String name, Size size, Movement movement) {
+  public void testGetMovement(Creature testedCreature, String name, Size size, Movement movement) throws Exception {
     assertEquals(movement, testedCreature.getMovement());
   }
 
   @ParameterizedTest
   @MethodSource("dataProvider")
   public void testGetColor(Creature testedCreature, String name, Size size, Movement movement,
-                           Color color) {
+                           Color color) throws Exception {
     assertEquals(color, testedCreature.getColor());
   }
 
   @ParameterizedTest
   @MethodSource("dataProvider")
   public void testToString(Creature testedCreature, String name, Size size, Movement movement,
-                           Color color) {
+                           Color color) throws Exception {
     final String toString = testedCreature.toString();
     assertNotNull(toString);
     assertEquals(

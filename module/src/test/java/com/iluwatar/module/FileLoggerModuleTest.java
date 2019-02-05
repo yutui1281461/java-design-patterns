@@ -27,7 +27,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * The Module pattern can be considered a Creational pattern and a Structural pattern. It manages
@@ -89,7 +88,7 @@ public final class FileLoggerModuleTest {
     fileLoggerModule.prepare();
 
     /* Test if nothing is printed in file */
-    assertNull(readFirstLine(OUTPUT_FILE));
+    assertEquals(readFirstLine(OUTPUT_FILE), null);
 
     /* Unprepare to cleanup the modules */
     fileLoggerModule.unprepare();
@@ -114,7 +113,7 @@ public final class FileLoggerModuleTest {
     fileLoggerModule.printErrorString(ERROR);
 
     /* Test if 'Message' is printed in file */
-    assertEquals(ERROR, readFirstLine(ERROR_FILE));
+    assertEquals(readFirstLine(ERROR_FILE), ERROR);
 
     /* Unprepare to cleanup the modules */
     fileLoggerModule.unprepare();
@@ -136,7 +135,7 @@ public final class FileLoggerModuleTest {
     fileLoggerModule.prepare();
 
     /* Test if nothing is printed in file */
-    assertNull(readFirstLine(ERROR_FILE));
+    assertEquals(readFirstLine(ERROR_FILE), null);
 
     /* Unprepare to cleanup the modules */
     fileLoggerModule.unprepare();
@@ -151,7 +150,11 @@ public final class FileLoggerModuleTest {
   private static final String readFirstLine(final String file) {
 
     String firstLine = null;
-    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+    BufferedReader bufferedReader = null;
+    try {
+
+      /* Create a buffered reader */
+      bufferedReader = new BufferedReader(new FileReader(file));
 
       while (bufferedReader.ready()) {
 
@@ -163,6 +166,15 @@ public final class FileLoggerModuleTest {
 
     } catch (final IOException e) {
       LOGGER.error("ModuleTest::readFirstLine()", e);
+    } finally {
+
+      if (bufferedReader != null) {
+        try {
+          bufferedReader.close();
+        } catch (final IOException e) {
+          LOGGER.error("ModuleTest::readFirstLine()", e);
+        }
+      }
     }
 
     return firstLine;

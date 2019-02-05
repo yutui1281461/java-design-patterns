@@ -1,12 +1,12 @@
 ---
 layout: pattern
-title: Serverless
+title: serverless
 folder: serverless
 permalink: /patterns/serverless/
 categories: Architectural
 tags:
  - Java
- - Difficulty-Intermediate
+ - Difficulty-Intermittent
 ---
 
 ## Serverless
@@ -18,33 +18,21 @@ Following are optimization katas you should be aware of while building a serverl
 applications
 
 * The Lean function
-    * Concise logic - Use functions to transform, not transport (utilize some of the 
-    integration available from the provider to transport), and make sure you read only
-     what you need
-    * Efficient/single purpose code - avoid conditional/routing logic and break down 
-    into individual functions, avoid "fat"/monolithic functions and control the 
-    dependencies in the function deployment package to reduce the load time for your 
-    function
-    * ephemeral environment - Utilize container start for expensive initializations
+    * Concise logic
+    * Efficient/single purpose code
+    * ephemeral environment
 * Eventful Invocations
-    * Succinct payloads - Scrutinize the event as much as possible, and watch for 
-    payload constraints (async - 128K)
-    * resilient routing - Understand retry policies and leverage dead letter queues 
-    (SQS or SNS for replays) and remember retries count as invocations
-    * concurrent execution - lambda thinks of it's scale in terms of concurrency and 
-    its not request based/duration based. Lambda will spin up the number of instances 
-    based on the request. 
+    * Succinct payloads
+    * resilient routing
+    * concurrent execution
 * Coordinated calls
-    * Decoupled via APIs - best practice to setup your application is to have API's as
-     contracts that ensures separation of concerns
-    * scale-matched downstream - make sure when Lambda is calling downstream 
-    components, you are matching scale configuration to it (by specifying max 
-    concurrency based on downstream services)
-    * secured - Always ask a question, do I need a VPC?
+    * Decoupled via APIs
+    * scale-matched downstream
+    * secured
 * Serviceful operations
-    * Automated - use automated tools to manage and maintain the stack 
-    * monitored applications - use monitoring services to get holistic view of your 
-    serverless applications
+    * Automated operations
+    * monitored applications
+    * Innovation mindset
 
 ## Intent
 
@@ -96,8 +84,7 @@ database service also provided by Amazon.
 
 ## AWS lambda function implementation
 
-[AWS Lambda SDK](https://aws.amazon.com/sdk-for-java/) provides pre-defined interface 
-`com.amazonaws.services.lambda.runtime
+AWS lambda SDK provides pre-defined interface `com.amazonaws.services.lambda.runtime
 .RequestHandler` to implement our lambda function. 
 
 ```java
@@ -136,9 +123,9 @@ dependencies of the function.
 
 Based on the configuration in `serverless.yml` serverless framework creates following 
 resources
-* CloudFormation stack for S3 (ServerlessDeploymentBucket)
+* cloud formation stack for S3 (ServerlessDeploymentBucket)
 * IAM Role (IamRoleLambdaExecution)
-* CloudWatch (log groups)
+* cloud watch (log groups)
 * API Gateway (ApiGatewayRestApi) 
 * Lambda function
 * DynamoDB collection
@@ -196,4 +183,3 @@ curl -X GET \
 
 * [serverless docs](https://serverless.com/framework/docs/)
 * [Serverless Architectures](https://martinfowler.com/articles/serverless.html)
-* [Serverless Black Belt](https://youtu.be/oQFORsso2go)

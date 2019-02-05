@@ -37,11 +37,8 @@ public class HeroStatTest {
   /**
    * Tester for equals() and hashCode() methods of a class. Using guava's EqualsTester.
    * 
-   * @see <a href="http://static.javadoc.io/com.google.guava/guava-testlib/19.0/com/google/common/testing/EqualsTester.html">
-   * http://static.javadoc.io/com.google.guava/guava-testlib/19.0/com/google/common/testing/EqualsTester.html
-   * </a>
-   *
-   *
+   * @see http://static.javadoc.io/com.google.guava/guava-testlib/19.0/com/google/common/testing/
+   *      EqualsTester.html
    */
   @Test
   public void testEquals() {

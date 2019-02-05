@@ -73,7 +73,7 @@ public class CharacterTest {
   }
 
   @Test
-  public void testToString() {
+  public void testToString() throws Exception {
     final Character prototype = new Character();
     prototype.set(Stats.ARMOR, 1);
     prototype.set(Stats.AGILITY, 2);
@@ -91,7 +91,7 @@ public class CharacterTest {
   }
 
   @Test
-  public void testName() {
+  public void testName() throws Exception {
     final Character prototype = new Character();
     prototype.set(Stats.ARMOR, 1);
     prototype.set(Stats.INTELLECT, 2);
@@ -107,7 +107,7 @@ public class CharacterTest {
   }
 
   @Test
-  public void testType() {
+  public void testType() throws Exception {
     final Character prototype = new Character();
     prototype.set(Stats.ARMOR, 1);
     prototype.set(Stats.INTELLECT, 2);

@@ -16,12 +16,11 @@
  */
 package com.iluwatar.event.asynchronous;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,7 +30,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  */
 public class EventAsynchronousTest {
+  App app;
+
   private static final Logger LOGGER = LoggerFactory.getLogger(EventAsynchronousTest.class);
+
+  @BeforeEach
+  public void setUp() {
+    app = new App();
+  }
 
   @Test
   public void testAsynchronousEvent() {
@@ -39,11 +45,11 @@ public class EventAsynchronousTest {
     try {
       int aEventId = eventManager.createAsync(60);
       eventManager.start(aEventId);
-      assertEquals(1, eventManager.getEventPool().size());
+      assertTrue(eventManager.getEventPool().size() == 1);
       assertTrue(eventManager.getEventPool().size() < EventManager.MAX_RUNNING_EVENTS);
-      assertEquals(-1, eventManager.numOfCurrentlyRunningSyncEvent());
+      assertTrue(eventManager.numOfCurrentlyRunningSyncEvent() == -1);
       eventManager.cancel(aEventId);
-      assertTrue(eventManager.getEventPool().isEmpty());
+      assertTrue(eventManager.getEventPool().size() == 0);
     } catch (MaxNumOfEventsAllowedException | LongRunningEventException | EventDoesNotExistException e) {
       LOGGER.error(e.getMessage());
     }
@@ -55,11 +61,11 @@ public class EventAsynchronousTest {
     try {
       int sEventId = eventManager.create(60);
       eventManager.start(sEventId);
-      assertEquals(1, eventManager.getEventPool().size());
+      assertTrue(eventManager.getEventPool().size() == 1);
       assertTrue(eventManager.getEventPool().size() < EventManager.MAX_RUNNING_EVENTS);
-      assertNotEquals(-1, eventManager.numOfCurrentlyRunningSyncEvent());
+      assertTrue(eventManager.numOfCurrentlyRunningSyncEvent() != -1);
       eventManager.cancel(sEventId);
-      assertTrue(eventManager.getEventPool().isEmpty());
+      assertTrue(eventManager.getEventPool().size() == 0);
     } catch (MaxNumOfEventsAllowedException | LongRunningEventException | EventDoesNotExistException
         | InvalidOperationException e) {
       LOGGER.error(e.getMessage());
@@ -67,7 +73,7 @@ public class EventAsynchronousTest {
   }
 
   @Test
-  public void testUnsuccessfulSynchronousEvent() {
+  public void testUnsuccessfulSynchronousEvent() throws InvalidOperationException {
     assertThrows(InvalidOperationException.class, () -> {
       EventManager eventManager = new EventManager();
       try {
@@ -88,7 +94,7 @@ public class EventAsynchronousTest {
       int eventTime = 1;
 
       int sEventId = eventManager.create(eventTime);
-      assertEquals(1, eventManager.getEventPool().size());
+      assertTrue(eventManager.getEventPool().size() == 1);
       eventManager.start(sEventId);
 
       long currentTime = System.currentTimeMillis();
@@ -98,7 +104,7 @@ public class EventAsynchronousTest {
       while (System.currentTimeMillis() < endTime) {
       }
 
-      assertTrue(eventManager.getEventPool().isEmpty());
+      assertTrue(eventManager.getEventPool().size() == 0);
 
     } catch (MaxNumOfEventsAllowedException | LongRunningEventException | EventDoesNotExistException
         | InvalidOperationException e) {
@@ -115,7 +121,7 @@ public class EventAsynchronousTest {
       int aEventId1 = eventManager.createAsync(eventTime);
       int aEventId2 = eventManager.createAsync(eventTime);
       int aEventId3 = eventManager.createAsync(eventTime);
-      assertEquals(3, eventManager.getEventPool().size());
+      assertTrue(eventManager.getEventPool().size() == 3);
 
       eventManager.start(aEventId1);
       eventManager.start(aEventId2);
@@ -127,7 +133,7 @@ public class EventAsynchronousTest {
       while (System.currentTimeMillis() < endTime) {
       }
 
-      assertTrue(eventManager.getEventPool().isEmpty());
+      assertTrue(eventManager.getEventPool().size() == 0);
 
     } catch (MaxNumOfEventsAllowedException | LongRunningEventException | EventDoesNotExistException e) {
       LOGGER.error(e.getMessage());

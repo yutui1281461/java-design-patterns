@@ -109,7 +109,9 @@ public class RepositoryTest {
     List<Person> persons = repository.findAll(new PersonSpecifications.AgeBetweenSpec(20, 40));
 
     assertEquals(3, persons.size());
-    assertTrue(persons.stream().allMatch(item -> item.getAge() > 20 && item.getAge() < 40));
+    assertTrue(persons.stream().allMatch((item) -> {
+      return item.getAge() > 20 && item.getAge() < 40;
+    }));
   }
 
   @Test

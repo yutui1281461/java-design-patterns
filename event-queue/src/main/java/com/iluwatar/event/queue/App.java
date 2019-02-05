@@ -47,15 +47,13 @@ public class App {
    * @throws IOException when there is a problem with the audio file loading
    * @throws UnsupportedAudioFileException  when the loaded audio file is unsupported 
    */
-  public static void main(String[] args) throws UnsupportedAudioFileException, IOException, InterruptedException {
-    Audio audio = Audio.getInstance();
-    audio.playSound(audio.getAudioStream("./etc/Bass-Drum-1.wav"), -10.0f);
-    audio.playSound(audio.getAudioStream("./etc/Closed-Hi-Hat-1.wav"), -8.0f);
+  public static void main(String[] args) throws UnsupportedAudioFileException, IOException {
+    Audio.playSound(Audio.getAudioStream("./etc/Bass-Drum-1.wav"), -10.0f);
+    Audio.playSound(Audio.getAudioStream("./etc/Closed-Hi-Hat-1.wav"), -8.0f);
     
     System.out.println("Press Enter key to stop the program...");
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-      br.read();
-    }
-    audio.stopService();
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    br.read();
+    Audio.stopService();
   }
 }

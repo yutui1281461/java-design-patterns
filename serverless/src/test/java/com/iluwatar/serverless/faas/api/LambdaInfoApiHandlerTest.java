@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit tests for LambdaInfoApiHandler
+ * LambdaInfoApiHandlerTest
  */
 @RunWith(MockitoJUnitRunner.class)
 public class LambdaInfoApiHandlerTest {

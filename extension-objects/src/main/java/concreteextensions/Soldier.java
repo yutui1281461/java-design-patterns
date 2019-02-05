@@ -31,7 +31,6 @@ import units.SoldierUnit;
  * Class defining Soldier
  */
 public class Soldier implements SoldierExtension {
-  private static final Logger LOGGER = LoggerFactory.getLogger(Soldier.class);
 
   private SoldierUnit unit;
 
@@ -39,8 +38,10 @@ public class Soldier implements SoldierExtension {
     this.unit = soldierUnit;
   }
 
+  final Logger logger = LoggerFactory.getLogger(Soldier.class);
+
   @Override
   public void soldierReady() {
-    LOGGER.info("[Solider] " + unit.getName() + "  is ready!");
+    logger.info("[Solider] " + unit.getName() + "  is ready!");
   }
 }

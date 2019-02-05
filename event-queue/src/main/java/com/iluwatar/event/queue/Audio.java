@@ -23,9 +23,6 @@
 
 package com.iluwatar.event.queue;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -41,56 +38,49 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  *
  */
 public class Audio {
-  private static final Logger LOGGER = LoggerFactory.getLogger(Audio.class);
-  private static final Audio INSTANCE = new Audio();
 
   private static final int MAX_PENDING = 16;
 
-  private int headIndex;
+  private static int headIndex;
 
-  private int tailIndex;
+  private static int tailIndex;
 
-  private volatile Thread updateThread = null;
+  private static Thread updateThread = null;
 
-  private PlayMessage[] pendingAudio = new PlayMessage[MAX_PENDING];
-
-  // Visible only for testing purposes
-  Audio() {
-
-  }
-
-  public static Audio getInstance() {
-    return INSTANCE;
-  }
+  private static PlayMessage[] pendingAudio = new PlayMessage[MAX_PENDING];
 
   /**
-   * This method stops the Update Method's thread and waits till service stops.
+   * This method stops the Update Method's thread. 
    */
-  public synchronized void stopService() throws InterruptedException {
+  public static synchronized void stopService() {
     if (updateThread != null) {
       updateThread.interrupt();
     }
-    updateThread.join();
-    updateThread = null;
   }
   
   /**
    * This method check the Update Method's thread is started.
    * @return boolean
    */
-  public synchronized boolean isServiceRunning() {
-    return updateThread != null && updateThread.isAlive();
+  public static synchronized boolean isServiceRunning() {
+    if (updateThread != null && updateThread.isAlive() ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
    * Starts the thread for the Update Method pattern if it was not started previously.
    * Also when the thread is is ready initializes the indexes of the queue 
    */
-  public void init() {
+  public static void init() {
     if (updateThread == null) {
-      updateThread = new Thread(() -> {
-        while (!Thread.currentThread().isInterrupted()) {
-          update();
+      updateThread = new Thread(new Runnable() {
+        public void run() {
+          while (!Thread.currentThread().isInterrupted()) {
+            Audio.update();
+          }
         }
       });
     }
@@ -100,7 +90,7 @@ public class Audio {
   /**
    * This is a synchronized thread starter
    */
-  private synchronized void startThread() {
+  public static synchronized void startThread() {
     if (!updateThread.isAlive()) {
       updateThread.start();
       headIndex = 0;
@@ -113,7 +103,7 @@ public class Audio {
    * @param stream is the AudioInputStream for the method
    * @param volume is the level of the audio's volume 
    */
-  public void playSound(AudioInputStream stream, float volume) {
+  public static void playSound(AudioInputStream stream, float volume) {
     init();
     // Walk the pending requests.
     for (int i = headIndex; i != tailIndex; i = (i + 1) % MAX_PENDING) {
@@ -133,7 +123,7 @@ public class Audio {
    * This method uses the Update Method pattern.
    * It takes the audio from the queue and plays it
    */
-  private void update() {
+  public static void update() {
     // If there are no pending requests, do nothing.
     if (headIndex == tailIndex) {
       return;
@@ -146,11 +136,13 @@ public class Audio {
       clip.open(audioStream);
       clip.start();
     } catch (LineUnavailableException e) {
-      LOGGER.trace("Error occoured while loading the audio: The line is unavailable", e);
+      System.err.println("Error occoured while loading the audio: The line is unavailable");
+      e.printStackTrace();
     } catch (IOException e) {
-      LOGGER.trace("Input/Output error while loading the audio", e);
+      System.err.println("Input/Output error while loading the audio");
+      e.printStackTrace();
     } catch (IllegalArgumentException e) {
-      LOGGER.trace("The system doesn't support the sound: " + e.getMessage(), e);
+      System.err.println("The system doesn't support the sound: " + e.getMessage());
     }
   }
 
@@ -161,7 +153,7 @@ public class Audio {
    * @throws UnsupportedAudioFileException when the audio file is not supported 
    * @throws IOException when the file is not readable
    */
-  public AudioInputStream getAudioStream(String filePath)
+  public static AudioInputStream getAudioStream(String filePath) 
       throws UnsupportedAudioFileException, IOException {
     return AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
   }
@@ -170,7 +162,7 @@ public class Audio {
    * Returns with the message array of the queue 
    * @return PlayMessage[]
    */
-  public PlayMessage[] getPendingAudio() {
+  public static PlayMessage[] getPendingAudio() {
     return pendingAudio;
   }
 

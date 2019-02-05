@@ -32,7 +32,6 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * AbstractDocument test class
@@ -82,8 +81,8 @@ public class AbstractDocumentTest {
     Map<String, Object> props = new HashMap<>();
     props.put(KEY, VALUE);
     DocumentImplementation document = new DocumentImplementation(props);
-    assertTrue(document.toString().contains(KEY));
-    assertTrue(document.toString().contains(VALUE));
+    assertNotNull(document.toString().contains(KEY));
+    assertNotNull(document.toString().contains(VALUE));
   }
 
 }

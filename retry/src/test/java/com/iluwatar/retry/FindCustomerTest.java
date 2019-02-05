@@ -53,7 +53,7 @@ public class FindCustomerTest {
    * @throws Exception the expected exception
    */
   @Test
-  public void oneException() {
+  public void oneException() throws Exception {
     assertThrows(BusinessException.class, () -> {
       new FindCustomer("123", new BusinessException("test")).perform();
     });

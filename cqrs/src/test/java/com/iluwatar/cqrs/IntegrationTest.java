@@ -96,7 +96,7 @@ public class IntegrationTest {
   @Test
   public void testGetAuthorBooks() {
     List<Book> books = queryService.getAuthorBooks("username1");
-    assertEquals(2, books.size());
+    assertTrue(books.size() == 2);
     assertTrue(books.contains(new Book("title1", 10)));
     assertTrue(books.contains(new Book("new_title2", 30)));
   }

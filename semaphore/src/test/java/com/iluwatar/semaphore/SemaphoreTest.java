@@ -36,12 +36,12 @@ public class SemaphoreTest {
   public void acquireReleaseTest() {
     Semaphore sphore = new Semaphore(3);
 
-    assertEquals(3, sphore.getAvailableLicenses());
+    assertEquals(sphore.getAvailableLicenses(), 3);
 
     for (int i = 2; i >= 0; i--) {
       try {
         sphore.acquire();
-        assertEquals(i, sphore.getAvailableLicenses());
+        assertEquals(sphore.getAvailableLicenses(), i);
       } catch (InterruptedException e) {
         fail(e.toString());
       }
@@ -49,10 +49,10 @@ public class SemaphoreTest {
   
     for (int i = 1; i <= 3; i++) {
       sphore.release();
-      assertEquals(i, sphore.getAvailableLicenses());
+      assertEquals(sphore.getAvailableLicenses(), i);
     }
 
     sphore.release();
-    assertEquals(3, sphore.getAvailableLicenses());
+    assertEquals(sphore.getAvailableLicenses(), 3);
   }
 }

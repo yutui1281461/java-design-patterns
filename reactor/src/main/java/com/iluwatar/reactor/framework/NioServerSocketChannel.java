@@ -98,9 +98,9 @@ public class NioServerSocketChannel extends AbstractNioChannel {
    */
   @Override
   public void bind() throws IOException {
-    getJavaChannel().socket().bind(
+    ((ServerSocketChannel) getJavaChannel()).socket().bind(
         new InetSocketAddress(InetAddress.getLocalHost(), port));
-    getJavaChannel().configureBlocking(false);
+    ((ServerSocketChannel) getJavaChannel()).configureBlocking(false);
     LOGGER.info("Bound TCP socket at port: {}", port);
   }
 

@@ -42,7 +42,7 @@ public class MessageQueueTest {
     msgQueue.submitMsg(new Message("MessageQueue Test"));
     
     // retrieve message
-    assertEquals("MessageQueue Test", msgQueue.retrieveMsg().getMsg());
+    assertEquals(msgQueue.retrieveMsg().getMsg(), "MessageQueue Test");
   }
 
 }

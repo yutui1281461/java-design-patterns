@@ -257,7 +257,7 @@ public class DbCustomerDaoTest {
 
   private void assertCustomerCountIs(int count) throws Exception {
     try (Stream<Customer> allCustomers = dao.getAll()) {
-      assertEquals(count, allCustomers.count());
+      assertTrue(allCustomers.count() == count);
     }
   }
 

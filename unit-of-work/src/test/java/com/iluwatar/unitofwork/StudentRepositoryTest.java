@@ -58,7 +58,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldSaveNewStudentWithoutWritingToDb() {
+  public void shouldSaveNewStudentWithoutWritingToDb() throws Exception {
     studentRepository.registerNew(student1);
     studentRepository.registerNew(student2);
 
@@ -67,7 +67,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldSaveDeletedStudentWithoutWritingToDb() {
+  public void shouldSaveDeletedStudentWithoutWritingToDb() throws Exception {
     studentRepository.registerDeleted(student1);
     studentRepository.registerDeleted(student2);
 
@@ -76,7 +76,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldSaveModifiedStudentWithoutWritingToDb() {
+  public void shouldSaveModifiedStudentWithoutWritingToDb() throws Exception {
     studentRepository.registerModified(student1);
     studentRepository.registerModified(student2);
 
@@ -85,7 +85,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldSaveAllLocalChangesToDb() {
+  public void shouldSaveAllLocalChangesToDb() throws Exception {
     context.put(IUnitOfWork.INSERT, Collections.singletonList(student1));
     context.put(IUnitOfWork.MODIFY, Collections.singletonList(student1));
     context.put(IUnitOfWork.DELETE, Collections.singletonList(student1));
@@ -98,7 +98,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldNotWriteToDbIfContextIsNull() {
+  public void shouldNotWriteToDbIfContextIsNull() throws Exception {
     StudentRepository studentRepository = new StudentRepository(null, studentDatabase);
 
     studentRepository.commit();
@@ -107,7 +107,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldNotWriteToDbIfNothingToCommit() {
+  public void shouldNotWriteToDbIfNothingToCommit() throws Exception {
     StudentRepository studentRepository = new StudentRepository(new HashMap<>(), studentDatabase);
 
     studentRepository.commit();
@@ -116,7 +116,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldNotInsertToDbIfNoRegisteredStudentsToBeCommitted() {
+  public void shouldNotInsertToDbIfNoRegisteredStudentsToBeCommitted() throws Exception {
     context.put(IUnitOfWork.MODIFY, Collections.singletonList(student1));
     context.put(IUnitOfWork.DELETE, Collections.singletonList(student1));
 
@@ -126,7 +126,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldNotModifyToDbIfNotRegisteredStudentsToBeCommitted() {
+  public void shouldNotModifyToDbIfNotRegisteredStudentsToBeCommitted() throws Exception {
     context.put(IUnitOfWork.INSERT, Collections.singletonList(student1));
     context.put(IUnitOfWork.DELETE, Collections.singletonList(student1));
 
@@ -136,7 +136,7 @@ public class StudentRepositoryTest {
   }
 
   @Test
-  public void shouldNotDeleteFromDbIfNotRegisteredStudentsToBeCommitted() {
+  public void shouldNotDeleteFromDbIfNotRegisteredStudentsToBeCommitted() throws Exception {
     context.put(IUnitOfWork.INSERT, Collections.singletonList(student1));
     context.put(IUnitOfWork.MODIFY, Collections.singletonList(student1));
 

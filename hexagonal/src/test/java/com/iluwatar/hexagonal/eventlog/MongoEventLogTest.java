@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Tests for Mongo event log
  */
 @Disabled
-class MongoEventLogTest {
+public class MongoEventLogTest {
 
   private static final String TEST_DB = "lotteryDBTest";
   private static final String TEST_EVENTS_COLLECTION = "testEvents";
@@ -43,7 +43,7 @@ class MongoEventLogTest {
   private MongoEventLog mongoEventLog;
 
   @BeforeEach
-  void init() {
+  public void init() {
     MongoConnectionPropertiesLoader.load();
     MongoClient mongoClient = new MongoClient(System.getProperty("mongo-host"),
         Integer.parseInt(System.getProperty("mongo-port")));
@@ -53,12 +53,12 @@ class MongoEventLogTest {
   }
 
   @Test
-  void testSetup() {
+  public void testSetup() {
     assertEquals(0, mongoEventLog.getEventsCollection().count());
   }
 
   @Test
-  void testFundTransfers() {
+  public void testFundTransfers() {
     PlayerDetails playerDetails = new PlayerDetails("john@wayne.com", "000-000", "03432534543");
     mongoEventLog.prizeError(playerDetails, 1000);
     assertEquals(1, mongoEventLog.getEventsCollection().count());

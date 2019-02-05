@@ -38,13 +38,13 @@ public class Tenant {
    * @param allowedCallsPerSecond The number of calls allowed for a particular tenant.
    * @throws InvalidParameterException If number of calls is less than 0, throws exception.
    */
-  public Tenant(String name, int allowedCallsPerSecond, CallsCount callsCount) {
+  public Tenant(String name, int allowedCallsPerSecond) {
     if (allowedCallsPerSecond < 0) {
       throw new InvalidParameterException("Number of calls less than 0 not allowed");
     }
     this.name = name;
     this.allowedCallsPerSecond = allowedCallsPerSecond;
-    callsCount.addTenant(name);
+    CallsCount.addTenant(name);
   }
 
   public String getName() {

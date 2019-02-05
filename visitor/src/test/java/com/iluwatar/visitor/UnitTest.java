@@ -55,7 +55,7 @@ public abstract class UnitTest<U extends Unit> {
   }
 
   @Test
-  public void testAccept() {
+  public void testAccept() throws Exception {
     final Unit[] children = new Unit[5];
     Arrays.setAll(children, (i) -> mock(Unit.class));
 

@@ -42,7 +42,7 @@ public class SpellDaoImplTest extends BaseDaoTest<Spell, SpellDaoImpl> {
   }
 
   @Test
-  public void testFindByName() {
+  public void testFindByName() throws Exception {
     final SpellDaoImpl dao = getDao();
     final List<Spell> allSpells = dao.findAll();
     for (final Spell spell : allSpells) {

@@ -22,18 +22,17 @@
  */
 package com.iluwatar.hexagonal.domain;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Lottery ticked id
  */
 public class LotteryTicketId {
 
-  private static AtomicInteger numAllocated = new AtomicInteger(0);
+  private static volatile int numAllocated;
   private final int id;
   
   public LotteryTicketId() {
-    this.id = numAllocated.incrementAndGet();
+    this.id = numAllocated + 1;
+    numAllocated++;
   }
 
   public LotteryTicketId(int id) {

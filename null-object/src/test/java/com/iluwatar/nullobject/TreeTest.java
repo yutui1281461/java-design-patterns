@@ -110,7 +110,7 @@ public class TreeTest {
   }
 
   @Test
-  public void testGetLeft() {
+  public void testGetLeft() throws Exception {
     final Node level1 = TREE_ROOT.getLeft();
     assertNotNull(level1);
     assertEquals("level1_a", level1.getName());
@@ -130,7 +130,7 @@ public class TreeTest {
   }
 
   @Test
-  public void testGetRight() {
+  public void testGetRight() throws Exception {
     final Node level1 = TREE_ROOT.getRight();
     assertNotNull(level1);
     assertEquals("level1_b", level1.getName());
