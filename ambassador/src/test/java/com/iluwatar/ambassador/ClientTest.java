@@ -20,11 +20,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
+package com.iluwatar.ambassador;
+
+import org.junit.jupiter.api.Test;
 
 /**
- * ZoomVisitor test class
+ * Test for {@link Client}
  */
-public interface ZoomVisitorTest {
+public class ClientTest {
 
+  @Test
+  public void test() {
+
+    Client client = new Client();
+    long result = client.useService(10);
+
+    assert result == 100 || result == -1;
+  }
 }

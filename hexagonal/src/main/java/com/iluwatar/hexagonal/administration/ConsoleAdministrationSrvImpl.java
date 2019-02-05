@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright (c) 2014 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,37 +20,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
+package com.iluwatar.hexagonal.administration;
 
+import com.iluwatar.hexagonal.domain.LotteryAdministration;
+import com.iluwatar.hexagonal.domain.LotteryNumbers;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * Hayes class implements its accept method
+ * Console implementation for lottery administration
  */
-public class Hayes extends Modem {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureForDosVisitor.class);
+public class ConsoleAdministrationSrvImpl implements ConsoleAdministrationSrv {
+  private final LotteryAdministration administration;
+  private final Logger logger;
 
   /**
-   * Accepts all visitors but honors only HayesVisitor
+   * Constructor
    */
-  @Override
-  public void accept(ModemVisitor modemVisitor) {
-    try {
-      ((HayesVisitor) modemVisitor).visit(this);
-    } catch (ClassCastException e) {
-      LOGGER.error("Unable to cast to HayesVisitor");
-    }
-
+  public ConsoleAdministrationSrvImpl(LotteryAdministration administration, Logger logger) {
+    this.administration = administration;
+    this.logger = logger;
   }
-  
-  /**
-   * Hayes' modem's toString
-   * method
-   */
+
   @Override
-  public String toString() {
-    return "Hayes modem";
+  public void getAllSubmittedTickets() {
+    administration.getAllSubmittedTickets().forEach((k, v) -> logger.info("Key: {}, Value: {}", k, v));
+  }
+
+  @Override
+  public void performLottery() {
+    LotteryNumbers numbers = administration.performLottery();
+    logger.info("The winning numbers: {}", numbers.getNumbersAsString());
+    logger.info("Time to reset the database for next round, eh?");
+  }
+
+  @Override
+  public void resetLottery() {
+    administration.resetLottery();
+    logger.info("The lottery ticket database was cleared.");
   }
 }

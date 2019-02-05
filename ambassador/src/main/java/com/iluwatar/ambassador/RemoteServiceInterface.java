@@ -20,11 +20,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
+package com.iluwatar.ambassador;
 
 /**
- * HayesVisitor test class
+ * Interface shared by ({@link RemoteService}) and ({@link ServiceAmbassador}).
  */
-public interface HayesVisitorTest {
-
+interface RemoteServiceInterface {
+    
+  long doRemoteFunction(int value) throws Exception;
 }

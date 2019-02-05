@@ -20,11 +20,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
+package com.iluwatar.ambassador;
+
+import org.junit.jupiter.api.Test;
 
 /**
- * Modem test class
+ * Test for {@link ServiceAmbassador}
  */
-public abstract class ModemTest {
+public class ServiceAmbassadorTest {
 
+  @Test
+  public void test() {
+    long result = new ServiceAmbassador().doRemoteFunction(10);
+    assert result == 100 || result == -1;
+  }
 }

@@ -22,35 +22,9 @@
  */
 package com.iluwatar.acyclicvisitor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Hayes class implements its accept method
+ * All ModemVisitor interface extends all visitor interfaces
  */
-public class Hayes extends Modem {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureForDosVisitor.class);
+public interface AllModemVisitor extends ModemVisitor, ZoomVisitor, HayesVisitor{
 
-  /**
-   * Accepts all visitors but honors only HayesVisitor
-   */
-  @Override
-  public void accept(ModemVisitor modemVisitor) {
-    try {
-      ((HayesVisitor) modemVisitor).visit(this);
-    } catch (ClassCastException e) {
-      LOGGER.error("Unable to cast to HayesVisitor");
-    }
-
-  }
-  
-  /**
-   * Hayes' modem's toString
-   * method
-   */
-  @Override
-  public String toString() {
-    return "Hayes modem";
-  }
 }

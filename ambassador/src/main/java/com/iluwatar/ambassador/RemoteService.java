@@ -20,37 +20,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
+package com.iluwatar.ambassador;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static java.lang.Thread.sleep;
+
 /**
- * Hayes class implements its accept method
+ * A remote legacy application represented by a Singleton implementation.
  */
-public class Hayes extends Modem {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureForDosVisitor.class);
+public class RemoteService implements RemoteServiceInterface {
 
-  /**
-   * Accepts all visitors but honors only HayesVisitor
-   */
-  @Override
-  public void accept(ModemVisitor modemVisitor) {
-    try {
-      ((HayesVisitor) modemVisitor).visit(this);
-    } catch (ClassCastException e) {
-      LOGGER.error("Unable to cast to HayesVisitor");
+  private static final Logger LOGGER = LoggerFactory.getLogger(RemoteService.class);
+  private static RemoteService service = null;
+
+  static synchronized RemoteService getRemoteService() {
+    if (service == null) {
+      service = new RemoteService();
     }
-
+    return service;
   }
-  
+
+  private RemoteService() {}
+
   /**
-   * Hayes' modem's toString
-   * method
+   * Remote function takes a value and multiplies it by 10 taking a random amount of time.
+   * Will sometimes return -1. This imitates connectivity issues a client might have to account for.
+   * @param value integer value to be multiplied.
+   * @return if waitTime is more than 200ms, it returns value * 10, otherwise -1.
    */
   @Override
-  public String toString() {
-    return "Hayes modem";
+  public long doRemoteFunction(int value) {
+
+    long waitTime = (long) Math.floor(Math.random() * 1000);
+
+    try {
+      sleep(waitTime);
+    } catch (InterruptedException e) {
+      LOGGER.error("Thread sleep state interrupted", e);
+    }
+    return waitTime >= 200 ? value * 10 : -1;
   }
 }

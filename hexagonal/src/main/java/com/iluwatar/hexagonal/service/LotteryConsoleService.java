@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright (c) 2014 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,37 +20,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
+package com.iluwatar.hexagonal.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.iluwatar.hexagonal.banking.WireTransfers;
+import com.iluwatar.hexagonal.domain.LotteryService;
+
+import java.util.Scanner;
+
 
 /**
- * Hayes class implements its accept method
+ * Console interface for lottery service
  */
-public class Hayes extends Modem {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureForDosVisitor.class);
+public interface LotteryConsoleService {
+
+  void checkTicket(LotteryService service, Scanner scanner);
 
   /**
-   * Accepts all visitors but honors only HayesVisitor
-   */
-  @Override
-  public void accept(ModemVisitor modemVisitor) {
-    try {
-      ((HayesVisitor) modemVisitor).visit(this);
-    } catch (ClassCastException e) {
-      LOGGER.error("Unable to cast to HayesVisitor");
-    }
+  * Submit lottery ticket to participate in the lottery
+  */
+  void submitTicket(LotteryService service, Scanner scanner);
 
-  }
-  
   /**
-   * Hayes' modem's toString
-   * method
-   */
-  @Override
-  public String toString() {
-    return "Hayes modem";
-  }
+  * Add funds to lottery account
+  */
+  void addFundsToLotteryAccount(WireTransfers bank, Scanner scanner);
+
+
+  /**
+  * Recovery funds from lottery account
+  */
+  void queryLotteryAccountFunds(WireTransfers bank, Scanner scanner);
+
 }

@@ -20,37 +20,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
+package com.iluwatar.ambassador;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.Test;
 
 /**
- * Hayes class implements its accept method
+ * Test for {@link RemoteService}
  */
-public class Hayes extends Modem {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureForDosVisitor.class);
+public class RemoteServiceTest {
 
-  /**
-   * Accepts all visitors but honors only HayesVisitor
-   */
-  @Override
-  public void accept(ModemVisitor modemVisitor) {
-    try {
-      ((HayesVisitor) modemVisitor).visit(this);
-    } catch (ClassCastException e) {
-      LOGGER.error("Unable to cast to HayesVisitor");
-    }
-
-  }
-  
-  /**
-   * Hayes' modem's toString
-   * method
-   */
-  @Override
-  public String toString() {
-    return "Hayes modem";
+  @Test
+  public void test() {
+    long result = RemoteService.getRemoteService().doRemoteFunction(10);
+    assert result == 100 || result == -1;
   }
 }
