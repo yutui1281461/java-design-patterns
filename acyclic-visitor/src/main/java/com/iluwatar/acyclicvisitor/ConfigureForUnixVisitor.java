@@ -29,12 +29,12 @@ import org.slf4j.LoggerFactory;
  * ConfigureForUnixVisitor class implements zoom's and hayes' visit method for Unix 
  * manufacturer
  */
-public class ConfigureForUnixVisitor implements AllModemVisitor  {
+public class ConfigureForUnixVisitor implements AllModemVisitor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureForUnixVisitor.class);
-
+   
   public void visit(Hayes hayes) {
-    LOGGER.info(hayes + " used with Unix configurator.");
+    LOGGER.info(hayes + " used with Dos configurator.");
   }
   
   public void visit(Zoom zoom) {
