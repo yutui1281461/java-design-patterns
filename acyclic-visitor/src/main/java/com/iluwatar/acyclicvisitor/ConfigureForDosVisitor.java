@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright (c) 2014-2016 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,29 +20,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.throttling;
+package com.iluwatar.acyclicvisitor;
 
-import com.iluwatar.throttling.timer.Throttler;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * B2BServiceTest class to test the B2BService
+ * CongigureForDosVisitor class
+ * implements both zoom's and 
+ * hayes' visit method for Dos 
+ * manufacturer
  */
-public class B2BServiceTest {
 
-  @Test
-  public void dummyCustomerApiTest() {
-    Tenant tenant = new Tenant("testTenant", 2);
-    // In order to assure that throttling limits will not be reset, we use an empty throttling implementation
-    Throttler timer = () -> { };
-    B2BService service = new B2BService(timer);
+public class ConfigureForDosVisitor implements ModemVisitor, HayesVisitor, ZoomVisitor {
 
-    for (int i = 0; i < 5; i++) {
-      service.dummyCustomerApi(tenant);
-    }
-    long counter = CallsCount.getCount(tenant.getName());
-    assertEquals(2, counter, "Counter limit must be reached");
+  private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureForDosVisitor.class);
+
+  public void visit(Hayes hayes) {
+    LOGGER.info(hayes + " used with Dos configurator.");
+  }
+
+  public void visit(Zoom zoom) {
+    LOGGER.info(zoom + " used with Dos configurator.");
   }
 }
