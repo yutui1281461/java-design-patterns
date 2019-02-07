@@ -10,7 +10,7 @@ tags:
 ---
 
 ## Intent
-Provide a helper service instance on a client and offload common functionality away from a shared resource.
+Provide a helper service that sends network requests on behalf of a client and offload common additional connectivity tasks.
 
 ## Explanation
 Real world example
@@ -42,8 +42,7 @@ A remote services represented as a singleton.
 ```java
 public class RemoteService implements RemoteServiceInterface {
 
-		private static final Logger LOGGER = LoggerFactory.getLogger(RemoteService.class);
-    private static RemoteService service = null;2
+    private static RemoteService service = null;
 
     static synchronized RemoteService getRemoteService() {
         if (service == null) {
@@ -52,7 +51,9 @@ public class RemoteService implements RemoteServiceInterface {
         return service;
     }
 
-    private RemoteService() {}
+    private RemoteService() {
+
+    }
 
     @Override
     public long doRemoteFunction(int value) {
@@ -62,7 +63,7 @@ public class RemoteService implements RemoteServiceInterface {
         try {
             sleep(waitTime);
         } catch (InterruptedException e) {
-            LOGGER.error("Thread sleep interrupted", e)
+            e.printStackTrace();
         }
         return waitTime >= 200 ? value * 10 : -1;
     }
@@ -78,7 +79,9 @@ public class ServiceAmbassador implements RemoteServiceInterface {
     private static final int RETRIES = 3;
     private static final int DELAY_MS = 3000;
 
-    ServiceAmbassador() {}
+    ServiceAmbassador() {
+
+    }
 
     @Override
     public long doRemoteFunction(int value) {
@@ -113,7 +116,7 @@ public class ServiceAmbassador implements RemoteServiceInterface {
                 try {
                     sleep(DELAY_MS);
                 } catch (InterruptedException e) {
-                    LOGGER.error("Thread sleep state interrupted", e);
+                    e.printStackTrace();
                 }
             } else {
                 break;
@@ -137,7 +140,7 @@ public class Client {
 
     long useService(int value) {
         long result = serviceAmbassador.doRemoteFunction(value);
-        LOGGER.info("Service result: " + result)
+        System.out.println(result);
         return result;
     }
 }

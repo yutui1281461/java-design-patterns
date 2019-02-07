@@ -1,6 +1,6 @@
 ---
 layout: pattern
-title: Serverless
+title: serverless
 folder: serverless
 permalink: /patterns/serverless/
 categories: Architectural

@@ -20,20 +20,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
-
-import org.junit.jupiter.api.Test;
-
-import com.iluwatar.acyclicvisitor.App;
+package com.iluwatar.iterator;
 
 /**
- * Tests that the Acyclic Visitor example runs without errors.
+ * 
+ * Item
+ *
  */
-public class AppTest {
-  
-  @Test
-  public void test() {
-    String[] args = {};
-    App.main(args);  
+public class Item {
+
+  private ItemType type;
+  private String name;
+
+  public Item(ItemType type, String name) {
+    this.setType(type);
+    this.name = name;
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
+
+  public ItemType getType() {
+    return type;
+  }
+
+  public final void setType(ItemType type) {
+    this.type = type;
   }
 }

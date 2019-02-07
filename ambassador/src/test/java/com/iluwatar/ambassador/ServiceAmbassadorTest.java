@@ -31,7 +31,8 @@ public class ServiceAmbassadorTest {
 
   @Test
   public void test() {
-    long result = new ServiceAmbassador().doRemoteFunction(10);
+    ServiceAmbassador ambassador = new ServiceAmbassador();
+    long result = ambassador.doRemoteFunction(10);
     assert result == 100 || result == -1;
   }
 }

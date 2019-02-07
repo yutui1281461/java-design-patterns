@@ -20,37 +20,59 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.acyclicvisitor;
+package com.iluwatar.iterator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
 
 /**
- * Hayes class implements its accept method
+ * 
+ * TreasureChestItemIterator
+ *
  */
-public class Hayes extends Modem {
-  
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConfigureForDosVisitor.class);
+public class TreasureChestItemIterator implements ItemIterator {
+
+  private TreasureChest chest;
+  private int idx;
+  private ItemType type;
 
   /**
-   * Accepts all visitors but honors only HayesVisitor
+   * Constructor
    */
-  @Override
-  public void accept(ModemVisitor modemVisitor) {
-    if (modemVisitor instanceof HayesVisitor) {
-      ((HayesVisitor) modemVisitor).visit(this);
-    } else {
-      LOGGER.info("Only HayesVisitor is allowed to visit Hayes modem");
-    }
-
+  public TreasureChestItemIterator(TreasureChest chest, ItemType type) {
+    this.chest = chest;
+    this.type = type;
+    this.idx = -1;
   }
-  
-  /**
-   * Hayes' modem's toString
-   * method
-   */
+
   @Override
-  public String toString() {
-    return "Hayes modem";
+  public boolean hasNext() {
+    return findNextIdx() != -1;
+  }
+
+  @Override
+  public Item next() {
+    idx = findNextIdx();
+    if (idx != -1) {
+      return chest.getItems().get(idx);
+    }
+    return null;
+  }
+
+  private int findNextIdx() {
+
+    List<Item> items = chest.getItems();
+    boolean found = false;
+    int tempIdx = idx;
+    while (!found) {
+      tempIdx++;
+      if (tempIdx >= items.size()) {
+        tempIdx = -1;
+        break;
+      }
+      if (type.equals(ItemType.ANY) || items.get(tempIdx).getType().equals(type)) {
+        break;
+      }
+    }
+    return tempIdx;
   }
 }
