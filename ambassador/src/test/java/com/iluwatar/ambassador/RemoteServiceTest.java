@@ -31,7 +31,10 @@ public class RemoteServiceTest {
 
   @Test
   public void test() {
-    long result = RemoteService.getRemoteService().doRemoteFunction(10);
+
+    RemoteService remoteService = RemoteService.getRemoteService();
+    long result = remoteService.doRemoteFunction(10);
+
     assert result == 100 || result == -1;
   }
 }
