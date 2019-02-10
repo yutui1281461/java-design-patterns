@@ -20,33 +20,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.iterator.list;
+package com.iluwatar.iterator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
- * Item
- *
+ * TreasureChest, the collection class.
+ * 
  */
-public class Item {
+public class TreasureChest {
 
-  private ItemType type;
-  private String name;
+  private List<Item> items;
 
-  public Item(ItemType type, String name) {
-    this.setType(type);
-    this.name = name;
+  /**
+   * Constructor
+   */
+  public TreasureChest() {
+    items = new ArrayList<>();
+    items.add(new Item(ItemType.POTION, "Potion of courage"));
+    items.add(new Item(ItemType.RING, "Ring of shadows"));
+    items.add(new Item(ItemType.POTION, "Potion of wisdom"));
+    items.add(new Item(ItemType.POTION, "Potion of blood"));
+    items.add(new Item(ItemType.WEAPON, "Sword of silver +1"));
+    items.add(new Item(ItemType.POTION, "Potion of rust"));
+    items.add(new Item(ItemType.POTION, "Potion of healing"));
+    items.add(new Item(ItemType.RING, "Ring of armor"));
+    items.add(new Item(ItemType.WEAPON, "Steel halberd"));
+    items.add(new Item(ItemType.WEAPON, "Dagger of poison"));
   }
 
-  @Override
-  public String toString() {
-    return name;
+  ItemIterator iterator(ItemType itemType) {
+    return new TreasureChestItemIterator(this, itemType);
   }
 
-  public ItemType getType() {
-    return type;
+  /**
+   * Get all items
+   */
+  public List<Item> getItems() {
+    List<Item> list = new ArrayList<>();
+    list.addAll(items);
+    return list;
   }
 
-  public final void setType(ItemType type) {
-    this.type = type;
-  }
 }

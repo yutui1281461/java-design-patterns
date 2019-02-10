@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright (c) 2014-2016 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,25 +20,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.iluwatar.collectionpipeline;
-
-import java.util.List;
+package com.iluwatar.iterator;
 
 /**
- * A Person class that has the list of cars that the person owns and use.
+ * 
+ * ItemType enumeration
+ *
  */
-public class Person {
-  private List<Car> cars;
+public enum ItemType {
 
-  /**
-   * Constructor to create an instance of person.
-   * @param cars the list of cars owned
-   */
-  public Person(List<Car> cars) {
-    this.cars = cars;
-  }
+  ANY, WEAPON, RING, POTION
 
-  public List<Car> getCars() {
-    return cars;
-  }
 }
